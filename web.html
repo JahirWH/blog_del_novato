@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de guías (guias.json)</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 30px 24px 24px 24px;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+    #editor > div {
+      margin-bottom: 18px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 14px;
+      background: #fafbfc;
+      position: relative;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.98em;
+    }
+    
+    input[type="text"] {
+      width: 95%;
+      padding: 5px;
+      margin-bottom: 8px;
+      border: 1px solid #bbb;
+      border-radius: 3px;
+      font-size: 1em;
+    }
+    .manual {
+        font-style: italic;
+        min-height: 100px;
+        overflow: auto;
+        height: 100px;
+        resize: vertical;
+        background: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px;
+        width: 99%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    button {
+      background: #2e2e2e;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 7px 16px;
+      margin-right: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 6px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #769ab4;
+    }
+    .danger {
+      background: #e74c3c;
+    }
+    .danger:hover {
+      background: #c0392b;
+    }
+    .msg {
+      color: #e74c3c;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Editor de guías (guias.json)</h2>
+    <div id="msg" class="msg"></div>
+    <div id="editor"></div>
+    <button onclick="agregarGuia()">Agregar guía</button>
+    <button onclick="descargarJSON()">Descargar guias.json</button>
+  </div>
+  <script>
+  let guias = [];
+  let categorias = [];
+  let dataCompleta = {};
+
+  // Cargar guias.json
+  fetch('guias.json')
+    .then(res => {
+      if (!res.ok) throw new Error('No se pudo cargar guias.json');
+      return res.json();
+    })
+    .then(data => {
+      dataCompleta = data;
+      guias = data.guias || [];
+      categorias = data.categorias || [];
+      renderEditor();
+    })
+    .catch(err => {
+      document.getElementById('msg').textContent = 'No se pudo cargar guias.json. Si ves este mensaje abriendo el archivo localmente, prueba abrirlo con un servidor local (por ejemplo: python -m http.server)';
+    });
+
+  function renderEditor() {
+    document.getElementById('msg').textContent = '';
+    const editor = document.getElementById('editor');
+    editor.innerHTML = '';
+    if (guias.length === 0) {
+      editor.innerHTML = '<em>No hay guías. Agrega una nueva.</em>';
+      return;
+    }
+    guias.forEach((guia, idx) => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <label>Título: <input type="text" value="${guia.titulo || ''}" onchange="actualizarGuia(${idx}, 'titulo', this.value)"></label>
+        <label>Descripción: <input type="text" value="${guia.descripcion || ''}" onchange="actualizarGuia(${idx}, 'descripcion', this.value)"></label>
+        <label>Contexto:
+          <textarea class="manual" oninput="actualizarGuia(${idx}, 'contexto', this.value)">${guia.contexto || ''}</textarea>
+        </label>
+        <label>Problema:
+          <textarea class="manual" oninput="actualizarGuia(${idx}, 'problema', this.value)">${guia.problema || ''}</textarea>
+        </label>
+        <label>Solución:
+          <textarea class="manual" oninput="actualizarGuia(${idx}, 'solucion', this.value)">${guia.solucion || ''}</textarea>
+        </label>
+        <label>Imagen: <input type="text" value="${guia.imagen || ''}" onchange="actualizarGuia(${idx}, 'imagen', this.value)"></label>
+        <label>Categoría: <input type="text" value="${guia.categoria || ''}" onchange="actualizarGuia(${idx}, 'categoria', this.value)"></label>
+        <label>Fecha: <input type="text" value="${guia.fecha || ''}" onchange="actualizarGuia(${idx}, 'fecha', this.value)"></label>
+        <button onclick="eliminarGuia(${idx})" class="danger">Eliminar</button>
+        <button onclick="limpiarGuia(${idx})" style="background:#bbb; color:#222;">Limpiar</button>
+      `;
+      editor.appendChild(div);
+    });
+  }
+
+  window.actualizarGuia = function(idx, campo, valor) {
+    guias[idx][campo] = valor;
+  }
+
+  window.agregarGuia = function() {
+    guias.push({
+      titulo: '',
+      descripcion: '',
+      contexto: '',
+      problema: '',
+      solucion: '',
+      imagen: '',
+      categoria: '',
+      fecha: ''
+    });
+    renderEditor();
+  }
+
+  window.eliminarGuia = function(idx) {
+    if (confirm('¿Eliminar esta guía?')) {
+      guias.splice(idx, 1);
+      renderEditor();
+    }
+  }
+
+  window.limpiarGuia = function(idx) {
+    guias[idx] = {
+      titulo: '',
+      descripcion: '',
+      contexto: '',
+      problema: '',
+      solucion: '',
+      imagen: '',
+      categoria: '',
+      fecha: ''
+    };
+    renderEditor();
+  }
+
+  window.descargarJSON = function() {
+    // Validación mínima
+    for (const g of guias) {
+      if (!g.titulo || !g.descripcion || !g.categoria || !g.fecha) {
+        document.getElementById('msg').textContent = 'Todos los campos deben estar completos antes de descargar.';
+        return;
+      }
+    }
+    // Guardar el objeto completo, no solo el array
+    dataCompleta.guias = guias;
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataCompleta, null, 2));
+    const dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute('href', dataStr);
+    dlAnchor.setAttribute('download', 'guias.json');
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    dlAnchor.remove();
+  }
+  </script>
+</body>
+</html>

@@ -46,17 +46,24 @@
     .container {
       display: flex;
       max-width: 1000px;
-      margin: auto;
-      padding: 20px;
+      margin: 30px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      border: 1px solid #e0e0e0;
     }
 
     .main-content {
       width: 70%;
+      padding-right: 30px;
     }
 
     .sidebar {
       width: 30%;
-      padding-left: 20px;
+      padding-left: 30px;
+      border-left: 1px solid #f0f0f0;
+      background: none;
     }
 
     .search-box {
@@ -83,7 +90,7 @@
 
     article img {
       max-width: 100%;
-      border: 1px solid #000;
+      /* border: 1px solid #000; */
     }
 
     article h2 {
@@ -123,11 +130,12 @@
 
     /* Estilos para las guías dinámicas */
     .guia-item {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-bottom: 20px;
-      background: #fff;
-      border-radius: 5px;
+      background: #f9f9f9;
+      border: 1px  #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      padding: 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
     }
 
     .guia-meta {
@@ -144,17 +152,17 @@
     }
 
     .btn-leer-mas {
-      background: #000;
+      background: #2e2e2e;
       color: #fff;
       border: none;
-      padding: 8px 15px;
+      padding: 8px 18px;
+      border-radius: 4px;
       cursor: pointer;
-      border-radius: 3px;
-      margin-top: 10px;
+      transition: background 0.2s;
     }
 
     .btn-leer-mas:hover {
-      background: #333;
+      background: #769ab4;
     }
 
     .categoria-link {
@@ -211,6 +219,35 @@
       line-height: 1.6;
     }
 
+    .bienvenida {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .bienvenida h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.5em;
+      color: #222;
+    }
+    .bienvenida p {
+      margin: 0 0 10px 0;
+      color: #555;
+    }
+    .info-extra {
+      font-size: 0.95em;
+      color: #888;
+      display: flex;
+      gap: 20px;
+    }
+    .guia-destacada {
+      margin-bottom: 28px;
+    }
+    .guia-destacada h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.1em;
+      color: #0074d9;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .container {
@@ -234,17 +271,33 @@
 
   <header>
     <h1>El Blog del Novato</h1>
-    <p>Just another Linux troubleshooting site</p>
+    <p>Errores convertidos en manuales </p>
     <nav>
       <a href="#">Inicio</a>
       <a href="#">Blog</a>
-      <a href="#">Guías</a>
-      <a href="#">Contacto</a>
+      <!-- <a href="#">Guías</a>
+      <a href="#">Contacto</a> -->
     </nav>
   </header>
 
   <div class="container">
     <div class="main-content">
+      <section class="bienvenida">
+        <h2>Bienvenido a El Blog del Novato</h2>
+        <p>Encuentra guías sencillas y soluciones prácticas para problemas comunes en Linux y tecnología.</p>
+        <div class="info-extra">
+          <span id="total-guias">Guías publicadas: 12</span>
+          <span id="ultima-actualizacion">Última actualización: 10/06/2024</span>
+        </div>
+      </section>
+      <!-- <section class="guia-destacada">
+        <h3>Guía destacada</h3>
+        <div class="guia-item">
+          <h4>Cómo instalar Docker en Debian</h4>
+          <p>Aprende a instalar y configurar Docker paso a paso en tu sistema Debian.</p>
+          <button class="btn-leer-mas">Leer más</button>
+        </div>
+      </section> -->
       <div id="guias-container">
         <!-- Las guías se cargarán dinámicamente aquí -->
       </div>
@@ -267,11 +320,17 @@
           <!-- Las categorías se cargarán dinámicamente aquí -->
         </ul>
       </section>
+      <section>
+        <h3>Chat</h3>
+        <p>Proximamente</p>
+      </section>
     </div>
   </div>
 
   <footer>
     © 2025 El Blog del Novato — Compartiendo lo que funciona
+    <p> <a style="list-style: none; color: #222; text-decoration: none; text-underline-offset:none ;" href="https://github.com/JahirWH">Github</a> </p>
+
   </footer>
 
   <script src="script.js"></script>

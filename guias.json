@@ -2,18 +2,23 @@
   "guias": [
     {
       "id": "jellyfin-usuarios",
-      "titulo": "🔧 Jellyfin no reconoce usuarios",
-      "descripcion": "Una guía rápida para solucionar problemas de usuarios en Jellyfin, verificando permisos y configuraciones...",
-      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Moon.jpg/640px-Moon.jpg",
+      "titulo": "Correccion de UUID en linux (/etc/fstab)",
+      "descripcion": " Recuperación del sistema MX Linux tras error en el archivo fstab por UUID incorrectos",
+      "manual": "Modifiqué el archivo `/etc/fstab` en mi laptop sin darme cuenta de que estaba usando los UUIDs de otro sistema (un servidor). Al reiniciar, el sistema MX Linux entró en \"modo de emergencia\" y no arrancaba.\n\nEl mensaje decía:\n\"No se puede dar acceso a la consola: la cuenta root está bloqueada.\"\n\nEsto sucede cuando el sistema intenta montar particiones que no existen o están mal referenciadas.\n\n¿QUÉ ES EL FSTAB?\nEs un archivo que le dice a Linux qué particiones montar al arrancar y cómo hacerlo. Si se usa un UUID incorrecto (identificador de disco), el sistema falla al iniciar.\n\n\n\n\n\n\n",
+      "imagen": "",
       "categoria": "Servidores",
       "fecha": "2025-01-15",
-      "contenido": "En esta guía aprenderás a solucionar problemas comunes con usuarios en Jellyfin..."
+      "contenido": "En esta guía aprenderás a solucionar problemas comunes con usuarios en Jellyfin...",
+      "contexto": "Modifiqué el archivo `/etc/fstab` en mi laptop sin darme cuenta de que estaba usando los UUIDs de otro sistema (un servidor). Al reiniciar, el sistema MX Linux entró en \"modo de emergencia\" y no arrancaba.\n\n",
+      "problema": "El mensaje decía:\n<br>\n\"No se puede dar acceso a la consola: la cuenta root está bloqueada.\" y se quedaba e el logo\n<br>\nEsto sucede cuando el sistema intenta montar particiones que no existen o están mal referenciadas.\n\n\n\n",
+      "solucion": "1. *Arranqué una USB Live (usé Elementary OS Live) por que no tenia otra, puede ser cualquiera que tenga herramientas de particiones basicas **\n<br>\n2. Abrí una terminal en elementary y detecté las particiones reales con: lsblk o lsblk -f\n\n<br>\nTe aparecera la usb live en mi caso (Elementary os) , y el disco de laptop o pc donde tenias tu sistema,algo como: \n<br>\n NAME   FSTYPE LABEL  SIZE  MOUNTPOINT\nsdb                       32gb\n├─sdb1 ext4   usb_live con elementary          \nsda                       120G  \n├─sda1 ext4    swamp(etc)  512M  \n└─sda2 ext4   mxlinux     119G  \n\n<br>\n Monta solo la partición raíz (probablemente /dev/sda2)\n<br>\n---- sudo mount /dev/sda2 /mnt ----\n<br>\n(/mnt) sera la carpeta donde se montara \n<br>\nopcional(si te da un error de superbloque o algo asi puedes intentar repararlo si tiene la herramienta) fsck , asi sudo fsck /dev/sda2\n<br>\nSi todo va bien después de montar\n<br>\nsudo mount --bind /dev /mnt/dev\n<br>\nsudo mount --bind /proc /mnt/proc\n<br>\nsudo mount --bind /sys /mnt/sys\n<br>\n y ahora:\n<br> sudo chroot /mnt\n(passwd root)\n\nuna vez dentro estara como en una consola dentro de otra, y podras buscar y modifica el archivo con, nano /etc/fstab, nano es la herramienta y /etc/fstab la ruta\n\n"
     },
     {
       "id": "montar-discos-debian",
-      "titulo": "💿 Cómo montar discos externos en Debian",
+      "titulo": " Cómo montar discos externos en Debian",
       "descripcion": "Aprende a montar discos manualmente y a establecer reglas automáticas usando fstab.",
-      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Eos_1.6_Desktop.png/640px-Eos_1.6_Desktop.png",
+      "manual": "",
+      "imagen": "",
       "categoria": "Linux",
       "fecha": "2025-01-10",
       "contenido": "Guía completa para montar discos externos en sistemas Debian..."
@@ -22,7 +27,8 @@
       "id": "configurar-nginx",
       "titulo": "🌐 Configurar Nginx como proxy reverso",
       "descripcion": "Configuración básica de Nginx para servir como proxy reverso en tu servidor.",
-      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Nginx_logo.svg/640px-Nginx_logo.svg.png",
+      "manual": "",
+      "imagen": "",
       "categoria": "Servidores",
       "fecha": "2025-01-05",
       "contenido": "Aprende a configurar Nginx como proxy reverso paso a paso..."
@@ -31,7 +37,8 @@
       "id": "resolver-dns-linux",
       "titulo": "🔍 Solucionar problemas de DNS en Linux",
       "descripcion": "Métodos para diagnosticar y resolver problemas de conectividad DNS.",
-      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Network-icon.svg/640px-Network-icon.svg.png",
+      "manual": "",
+      "imagen": "",
       "categoria": "Redes",
       "fecha": "2025-01-01",
       "contenido": "Guía para diagnosticar y resolver problemas de DNS en sistemas Linux..."
@@ -39,10 +46,10 @@
   ],
   "categorias": [
     "Linux",
-    "Servidores", 
+    "Servidores",
     "Redes",
     "Errores comunes",
     "Configuraciones",
     "Software libre"
   ]
-} 
+}

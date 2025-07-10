@@ -22,7 +22,7 @@ class BlogDinamico {
         if (!respuesta.ok) {
             throw new Error('No se pudo cargar el archivo JSON');
         }
-        this.datos = await respuesta.json();
+        this.datos = await respuesta.json();    
     }
 
     renderizarGuias() {
@@ -127,9 +127,9 @@ class BlogDinamico {
                     <span class="fecha">${this.formatearFecha(guia.fecha)}</span>
                 </div>
                 <div class="contenido-completo">
-                    <p>${guia.contenido}</p>
-                    <p>Esta es una vista previa del contenido completo de la guía. 
-                    En una implementación real, aquí se mostraría todo el contenido de la guía.</p>
+                    <section><strong>Contexto:</strong><br>${guia.contexto ? guia.contexto.replace(/\n/g, '<br>') : '<em>No especificado</em>'}</section>
+                    <section style="margin-top:10px;"><strong>Problema:</strong><br>${guia.problema ? guia.problema.replace(/\n/g, '<br>') : '<em>No especificado</em>'}</section>
+                    <section style="margin-top:10px;"><strong>Solución:</strong><br>${guia.solucion ? guia.solucion.replace(/\n/g, '<br>') : '<em>No especificado</em>'}</section>
                 </div>
             </div>
         `;
