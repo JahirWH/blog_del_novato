@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>El Blog del Novato</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background-color: #eaeaea;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #eaeaea;
+      padding: 20px;
+      border-bottom: 2px solid #000;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      font-style: italic;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    nav {
+      text-align: right;
+      margin-top: -40px;
+      margin-right: 20px;
+    }
+
+    nav a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #000;
+    }
+
+    .container {
+      display: flex;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .main-content {
+      width: 70%;
+    }
+
+    .sidebar {
+      width: 30%;
+      padding-left: 20px;
+    }
+
+    .search-box {
+      margin-bottom: 20px;
+    }
+
+    .search-box input[type="text"] {
+      width: 70%;
+      padding: 5px;
+      border: 1px solid #000;
+    }
+
+    .search-box input[type="submit"] {
+      padding: 5px 10px;
+      border: none;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    article {
+      margin-bottom: 30px;
+    }
+
+    article img {
+      max-width: 100%;
+      border: 1px solid #000;
+    }
+
+    article h2 {
+      margin: 10px 0 5px;
+      color: #000;
+    }
+
+    article p {
+      margin: 0;
+    }
+
+    .sidebar section {
+      margin-bottom: 20px;
+    }
+
+    .sidebar h3 {
+      margin-bottom: 5px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .sidebar li {
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8em;
+      padding: 10px;
+      border-top: 2px solid #000;
+      margin-top: 30px;
+    }
+
+    /* Estilos para las guías dinámicas */
+    .guia-item {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fff;
+      border-radius: 5px;
+    }
+
+    .guia-meta {
+      margin: 10px 0;
+      font-size: 0.8em;
+      color: #666;
+    }
+
+    .guia-meta span {
+      margin-right: 15px;
+      background: #f0f0f0;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .btn-leer-mas {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 3px;
+      margin-top: 10px;
+    }
+
+    .btn-leer-mas:hover {
+      background: #333;
+    }
+
+    .categoria-link {
+      text-decoration: none;
+      color: #000;
+      transition: color 0.3s;
+    }
+
+    .categoria-link:hover,
+    .categoria-link.activa {
+      color: #666;
+      font-weight: bold;
+    }
+
+    /* Modal para detalles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-contenido {
+      background: #fff;
+      padding: 20px;
+      max-width: 80%;
+      max-height: 80%;
+      overflow-y: auto;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .cerrar {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .cerrar:hover {
+      color: #000;
+    }
+
+    .contenido-completo {
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .main-content,
+      .sidebar {
+        width: 100%;
+        padding-left: 0;
+      }
+      
+      .modal-contenido {
+        max-width: 95%;
+        margin: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>El Blog del Novato</h1>
+    <p>Just another Linux troubleshooting site</p>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Blog</a>
+      <a href="#">Guías</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="main-content">
+      <div id="guias-container">
+        <!-- Las guías se cargarán dinámicamente aquí -->
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <form class="search-box">
+        <input type="text" placeholder="Buscar...">
+        <input type="submit" value="Search">
+      </form>
+
+      <section>
+        <h3>Donaciones</h3>
+        <p>¿Te sirvió alguna guía? Considera invitarme un café virtual ☕</p>
+      </section>
+
+      <section>
+        <h3>Secciones</h3>
+        <ul id="categorias-container">
+          <!-- Las categorías se cargarán dinámicamente aquí -->
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 El Blog del Novato — Compartiendo lo que funciona
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

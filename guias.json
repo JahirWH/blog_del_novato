@@ -1,0 +1,48 @@
+{
+  "guias": [
+    {
+      "id": "jellyfin-usuarios",
+      "titulo": "🔧 Jellyfin no reconoce usuarios",
+      "descripcion": "Una guía rápida para solucionar problemas de usuarios en Jellyfin, verificando permisos y configuraciones...",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Moon.jpg/640px-Moon.jpg",
+      "categoria": "Servidores",
+      "fecha": "2025-01-15",
+      "contenido": "En esta guía aprenderás a solucionar problemas comunes con usuarios en Jellyfin..."
+    },
+    {
+      "id": "montar-discos-debian",
+      "titulo": "💿 Cómo montar discos externos en Debian",
+      "descripcion": "Aprende a montar discos manualmente y a establecer reglas automáticas usando fstab.",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Eos_1.6_Desktop.png/640px-Eos_1.6_Desktop.png",
+      "categoria": "Linux",
+      "fecha": "2025-01-10",
+      "contenido": "Guía completa para montar discos externos en sistemas Debian..."
+    },
+    {
+      "id": "configurar-nginx",
+      "titulo": "🌐 Configurar Nginx como proxy reverso",
+      "descripcion": "Configuración básica de Nginx para servir como proxy reverso en tu servidor.",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Nginx_logo.svg/640px-Nginx_logo.svg.png",
+      "categoria": "Servidores",
+      "fecha": "2025-01-05",
+      "contenido": "Aprende a configurar Nginx como proxy reverso paso a paso..."
+    },
+    {
+      "id": "resolver-dns-linux",
+      "titulo": "🔍 Solucionar problemas de DNS en Linux",
+      "descripcion": "Métodos para diagnosticar y resolver problemas de conectividad DNS.",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Network-icon.svg/640px-Network-icon.svg.png",
+      "categoria": "Redes",
+      "fecha": "2025-01-01",
+      "contenido": "Guía para diagnosticar y resolver problemas de DNS en sistemas Linux..."
+    }
+  ],
+  "categorias": [
+    "Linux",
+    "Servidores", 
+    "Redes",
+    "Errores comunes",
+    "Configuraciones",
+    "Software libre"
+  ]
+} 
