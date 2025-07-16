@@ -10,4 +10,4 @@
 
 
 -ccapture
-!(capture)[blog.webp]
+!(capture)(blog.webp)
