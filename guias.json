@@ -2,7 +2,7 @@
   "guias": [
     {
       "id": "jellyfin-usuarios",
-      "titulo": "Correccion de UUID en linux (/etc/fstab)",
+      "titulo": "Correccion de UUID en linux (/etc/fstab) MX linux",
       "descripcion": " Recuperación del sistema MX Linux tras error en el archivo fstab por UUID incorrectos",
       "manual": "Modifiqué el archivo `/etc/fstab` en mi laptop sin darme cuenta de que estaba usando los UUIDs de otro sistema (un servidor). Al reiniciar, el sistema MX Linux entró en \"modo de emergencia\" y no arrancaba.\n\nEl mensaje decía:\n\"No se puede dar acceso a la consola: la cuenta root está bloqueada.\"\n\nEsto sucede cuando el sistema intenta montar particiones que no existen o están mal referenciadas.\n\n¿QUÉ ES EL FSTAB?\nEs un archivo que le dice a Linux qué particiones montar al arrancar y cómo hacerlo. Si se usa un UUID incorrecto (identificador de disco), el sistema falla al iniciar.\n\n\n\n\n\n\n",
       "imagen": "",
@@ -10,38 +10,34 @@
       "fecha": "2025-01-15",
       "contenido": "En esta guía aprenderás a solucionar problemas comunes con usuarios en Jellyfin...",
       "contexto": "Modifiqué el archivo `/etc/fstab` en mi laptop sin darme cuenta de que estaba usando los UUIDs de otro sistema (un servidor). Al reiniciar, el sistema MX Linux entró en \"modo de emergencia\" y no arrancaba.\n\n",
-      "problema": "El mensaje decía:\n<br>\n\"No se puede dar acceso a la consola: la cuenta root está bloqueada.\" y se quedaba e el logo\n<br>\nEsto sucede cuando el sistema intenta montar particiones que no existen o están mal referenciadas.\n\n\n\n",
-      "solucion": "1. *Arranqué una USB Live (usé Elementary OS Live) por que no tenia otra, puede ser cualquiera que tenga herramientas de particiones basicas **\n<br>\n2. Abrí una terminal en elementary y detecté las particiones reales con: lsblk o lsblk -f\n\n<br>\nTe aparecera la usb live en mi caso (Elementary os) , y el disco de laptop o pc donde tenias tu sistema,algo como: \n<br>\n NAME   FSTYPE LABEL  SIZE  MOUNTPOINT\nsdb                       32gb\n├─sdb1 ext4   usb_live con elementary          \nsda                       120G  \n├─sda1 ext4    swamp(etc)  512M  \n└─sda2 ext4   mxlinux     119G  \n\n<br>\n Monta solo la partición raíz (probablemente /dev/sda2)\n<br>\n---- sudo mount /dev/sda2 /mnt ----\n<br>\n(/mnt) sera la carpeta donde se montara \n<br>\nopcional(si te da un error de superbloque o algo asi puedes intentar repararlo si tiene la herramienta) fsck , asi sudo fsck /dev/sda2\n<br>\nSi todo va bien después de montar\n<br>\nsudo mount --bind /dev /mnt/dev\n<br>\nsudo mount --bind /proc /mnt/proc\n<br>\nsudo mount --bind /sys /mnt/sys\n<br>\n y ahora:\n<br> sudo chroot /mnt\n(passwd root)\n\nuna vez dentro estara como en una consola dentro de otra, y podras buscar y modifica el archivo con, nano /etc/fstab, nano es la herramienta y /etc/fstab la ruta\n\n"
+      "problema": "El mensaje decía:\n\"No se puede dar acceso a la consola: la cuenta root está bloqueada.\" y se quedaba e el logo\nEsto sucede cuando el sistema intenta montar particiones que no existen o están mal referenciadas.\n",
+      "solucion": "Arranqué una USB Live (usé Elementary OS Live) por que no tenia otra, puede ser cualquiera que tenga herramientas de particiones basicas \n\nAbrí una terminal en elementary y detecté las particiones reales con: lsblk o lsblk -f\nTe aparecera la usb live en mi caso (Elementary os) , y el disco de laptop o pc donde tenias tu sistema,algo como: \n<br>\n NAME   FSTYPE LABEL  SIZE  MOUNTPOINT\nsdb                       32gb\n├─sdb1 ext4   usb_live con elementary          \nsda                       120G  \n├─sda1 ext4    swamp(etc)  512M  \n└─sda2 ext4   mxlinux     119G  \n\n Monta solo la partición raíz (probablemente /dev/sda2)\n---- sudo mount /dev/sda2 /mnt ----\n\n(/mnt) sera la carpeta donde se montara \n\nopcional(si te da un error de superbloque o algo asi puedes intentar repararlo si tiene la herramienta) fsck , asi sudo fsck /dev/sda2\n\nSi todo va bien después de montar\n\nsudo mount --bind /dev /mnt/dev\nsudo mount --bind /proc /mnt/proc\nsudo mount --bind /sys /mnt/sys\n y ahora:\n<br> sudo chroot /mnt\n(passwd root)\n\nuna vez dentro estara como en una consola dentro de otra, y podras buscar y modifica el archivo con, nano /etc/fstab, nano es la herramienta y /etc/fstab la ruta\nyo use micro que es un editor como nano pero se me hace mas comodo:\n\n micro /etc/fstab\n\n"
     },
     {
       "id": "montar-discos-debian",
-      "titulo": " Cómo montar discos externos en Debian",
-      "descripcion": "Aprende a montar discos manualmente y a establecer reglas automáticas usando fstab.",
+      "titulo": "Cómo instalé y configuré Uptime Kuma en mi servidor Debian",
+      "descripcion": "Instalacion sencilla",
       "manual": "",
       "imagen": "",
-      "categoria": "Linux",
+      "categoria": " Servidores",
       "fecha": "2025-01-10",
-      "contenido": "Guía completa para montar discos externos en sistemas Debian..."
+      "contenido": "Guía completa para montar discos externos en sistemas Debian...",
+      "contexto": "Uptime Kuma es un dasboard donde puedes ver en tiempo real tus solicitudes, sitios web o solo request, muy util puedes ver el manual en el repo oficial (https://github.com/louislam/uptime-kuma)",
+      "problema": "Ninguno",
+      "solucion": "Instalé Node.js y npm (porque me marcaba que no tenía npm), actualize a mi la ultima version \n<b>curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -</b>\ny \n<b>sudo apt install -y nodejs</b>\n\nVerifiqué que se instaló correctamente:\nnode -v\nnpm -v\n\nCloné el repositorio de Uptime Kuma y lo prepare,\n\n<b>git clone https://github.com/louislam/uptime-kuma.git</b>\n\ncd uptime-kuma\nnpm run setup\n\nHice que Uptime Kuma funcione para toda mi red, no solo en mi servidor .Por defecto, Uptime Kuma corre solo en localhost (127.0.0.1), así que no se puede acceder desde otra PC.\nPara cambiarlo a que funcione en toda la red local (IP 0.0.0.0), edité o creé el archivo:\n\ncp server/config.example.js server/config.js\n\neditamos:\n\nnano server/config.js \nen mi caso:\nmicro server/config.js\n\nme queda algo asi,\n module.exports = {\n    port: 3001,\n    hostname: \"0.0.0.0\"\n};\n\nojo, hay muchos exports, solo agrega la ip frente al hostname,\nY lo levanté así:\n\npm2 start server/server.js --name uptime-kuma\n\ncambia start por stop para parar,Abrí el puerto en el firewall para que mi red pueda acceder (si no usas ufw no lo hagas)\n\nsudo ufw allow 3001/tcp\nsudo ufw reload\n\ny ya acedi a la ip del servidor con el puerto que venia en kuma que por defecto es 3001\nhay otra forma de instalarlo con docker pero hasta aqui debe funcionar"
     },
     {
       "id": "configurar-nginx",
-      "titulo": "🌐 Configurar Nginx como proxy reverso",
-      "descripcion": "Configuración básica de Nginx para servir como proxy reverso en tu servidor.",
+      "titulo": "Cómo empaqueté mi programa en .deb e instalable con APT",
+      "descripcion": "Guia",
       "manual": "",
       "imagen": "",
-      "categoria": "Servidores",
+      "categoria": "Linux",
       "fecha": "2025-01-05",
-      "contenido": "Aprende a configurar Nginx como proxy reverso paso a paso..."
-    },
-    {
-      "id": "resolver-dns-linux",
-      "titulo": "🔍 Solucionar problemas de DNS en Linux",
-      "descripcion": "Métodos para diagnosticar y resolver problemas de conectividad DNS.",
-      "manual": "",
-      "imagen": "",
-      "categoria": "Redes",
-      "fecha": "2025-01-01",
-      "contenido": "Guía para diagnosticar y resolver problemas de DNS en sistemas Linux..."
+      "contenido": "Aprende a configurar Nginx como proxy reverso paso a paso...",
+      "contexto": "Convertir tu script Python (por ejemplo: mini_top.py) en un paquete .deb instalable desde cualquier PC con:\n    sudo apt install (ejemplo:mini-top)",
+      "problema": "Al principio, mi paquete se instalaba, pero el comando <code>mini-top</code> no funcionaba. Descubrí que el script necesitaba cumplir ciertos requisitos:\n\n  <li>Empezar con <code>#!/usr/bin/env python3</code> en la primera línea (shebang)</li>\n  <li>Estar ubicado en <code>/usr/bin/mini-top</code> (sin extensión)</li>\n  <li>Tener permisos de ejecución con <code>chmod +x</code></li>\nLa estructura del paquete debe ser así:\n<code>\nbuild/mini-top/\n├── DEBIAN/control\n└── usr/bin/mini-top\n</code>\nPara empaquetarlo:\n<code>dpkg-deb --build build/mini-top</code>\nY para construir el índice APT necesario:\n<code>\ndpkg-scanpackages . /dev/null | gzip -9c > Packages.gz\n</code>\nLuego subí el <code>.deb</code> y el <code>Packages.gz</code> a la rama <code>gh-pages</code> de GitHub para alojarlos públicamente.\n",
+      "solucion": "Paso 1: Prepara la estructura del paquete .deb\n1. Crea la estructura base:\n    mkdir -p build/mini-top/DEBIAN\n    mkdir -p build/mini-top/usr/bin\n\n2. Copia tu script (el mio era .py python)y renómbralo:\n    cp mini_top.py build/mini-top/usr/bin/mini-top\n\n3. Hazlo ejecutable puedes usar sudo si te da error:\n    chmod +x build/mini-top/usr/bin/mini-top\n\n4. Asegúrate de que el script empiece con:\n    #!/usr/bin/env python3\n\nPaso 2: Crea el archivo de control\n1. Crea el archivo DEBIAN/control:\n    nano build/mini-top/DEBIAN/control\n\n2. Agrega el siguiente contenido acorde a tus datos:\n\n    Package: mini-top\n    Version: 1.0.1\n    Section: utils\n    Priority: optional\n    Architecture: all\n    Maintainer: TuNombre <tunombre@ejemplo.com>\n    Description: Monitor ligero de CPU y RAM para terminal\n\nPaso 3: Empaqueta en .deb\n\n1. Ejecuta:\n    dpkg-deb --build build/mini-top\nEsto generará el archivo:\n    build/mini-top.deb\n\nPaso 4: Prepara tu repositorio APT en GitHub Pages\n1. Crea una carpeta en tu repositorio GitHub llamada `apt/`\n2. Copia el archivo .deb a esa carpeta(el archivo deb que dejo la carpeta buil):\n    cp build/mini-top.deb apt/mini-top.deb\n\n3.Entra a la carpeta:\n    cd apt\n4. Genera el índice de paquetes:\n    dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz\n\nPaso 5: Sube a GitHub Pages\n1. Asegúrate de estar en la rama gh-pages:\n    git checkout gh-pages, o creala\n2. Agrega los archivos:\n    git add mini-top.deb Packages.gz\n3. Confirma los cambios:\n    git commit -m \"Publicar mini-top.deb y Packages.gz\"\n4. Sube a GitHub:\n    git push origin gh-pages\n\nPaso 6: Instala desde otra PC o servidor\n\n1. Agrega el repositorio:\n    echo \"deb [trusted=yes] https://TU_USUARIO.github.io/TU_REPO/apt/ ./\" | sudo tee /etc/apt/sources.list.d/mini-top.list\n\n2. Actualiza la lista:\n    sudo apt update\n3.Instala el paquete:\n    sudo apt install mini-top\n\n Ejecuta o en tu caso tu nombre de tu scrip:\n    mini-top\n\nExtra: Limpiar e intentar de nuevo\n\n1. Elimina el paquete instalado:\n    sudo apt purge mini-top\n\n2. Borra el archivo .list:\n    sudo rm /etc/apt/sources.list.d/mini-top.list\n\n3. Limpia el cache:\n    sudo apt update\n\n\n"
     }
   ],
   "categorias": [
