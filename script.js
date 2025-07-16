@@ -1,5 +1,5 @@
 // Clase para manejar el blog dinámico
-class BlogDinamico {
+class BlogDinamico {    
     constructor() {
         this.datos = null;
         this.categoriaActual = 'todas';
@@ -12,6 +12,7 @@ class BlogDinamico {
             this.renderizarGuias();
             this.renderizarCategorias();
             this.configurarBusqueda();
+            this.conteo_guias()
         } catch (error) {
             console.error('Error al cargar los datos:', error);
         }
@@ -111,6 +112,15 @@ class BlogDinamico {
         });
     }
 
+    conteo_guias() {
+        // Cuenta el número de guías con id válido
+        const total = this.datos.guias.filter(guia => guia.id).length;
+        const imprime = document.getElementById('cont_guia');
+        if (imprime) {
+            imprime.textContent = total;
+        }
+    }
+
     mostrarDetalle(idGuia) {
         const guia = this.datos.guias.find(g => g.id === idGuia);
         if (!guia) return;
@@ -118,21 +128,39 @@ class BlogDinamico {
         const modal = document.createElement('div');
         modal.className = 'modal';
         modal.innerHTML = `
-            <div class="modal-contenido">
-                <span class="cerrar">&times;</span>
-                <h2>${guia.titulo}</h2>
-                <img src="${guia.imagen}" alt="${guia.titulo}">
-                <div class="guia-meta">
-                    <span class="categoria">${guia.categoria}</span>
-                    <span class="fecha">${this.formatearFecha(guia.fecha)}</span>
-                </div>
-                <div class="contenido-completo">
-                    <section><strong>Contexto:</strong><br>${guia.contexto ? guia.contexto.replace(/\n/g, '<br>') : '<em>No especificado</em>'}</section>
-                    <section style="margin-top:10px;"><strong>Problema:</strong><br>${guia.problema ? guia.problema.replace(/\n/g, '<br>') : '<em>No especificado</em>'}</section>
-                    <section style="margin-top:10px;"><strong>Solución:</strong><br>${guia.solucion ? guia.solucion.replace(/\n/g, '<br>') : '<em>No especificado</em>'}</section>
-                </div>
-            </div>
+         <div class="modal-contenido">
+  <span class="cerrar">&times;</span>
+  <h2>${guia.titulo}</h2>
+  <img src="${guia.imagen}" alt="${guia.titulo}">
+  <div class="guia-meta">
+    <span class="categoria">${guia.categoria}</span>
+    <span class="fecha">${this.formatearFecha(guia.fecha)}</span>
+  </div>
+  <div class="contenido-completo">
+    <section>
+      <strong>Contexto:</strong>
+      <div class="contexto-box"">
+        ${guia.contexto ? guia.contexto.replace(/\n/g, '<br>') : '<em>No especificado</em>'}
+      </div>
+    </section>
+    <section style="margin-top:10px;">
+      <strong>Problema:</strong>
+      <div class="problema-box"">
+        ${guia.problema ? guia.problema.replace(/\n/g, '<br>') : '<em>No especificado</em>'}
+      </div>
+    </section>
+    <section style="margin-top:10px;">
+      <strong>Solución:</strong>
+      <div id="solucion-contenido" class="solucion-box">
+        <div id="texto-solucion">${guia.solucion ? guia.solucion.replace(/\n/g, '<br>') : '<em>No especificado</em>'}</div>
+      </div>
+    </section>
+  </div>
+</div>
+        
         `;
+
+
 
         document.body.appendChild(modal);
 

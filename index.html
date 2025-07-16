@@ -6,185 +6,340 @@
   <title>El Blog del Novato</title>
   <style>
     body {
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      background-color: #eaeaea;
-      color: #000;
+      font-family: Trebuchet MS, Arial, sans-serif;
+      background: linear-gradient(135deg, #e6f3ff 0%, #c7e9ff 50%, #a8d5ff 100%);
+      background-attachment: fixed;
+      color: #333;
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Efectos de sombra 3D característicos */
+    .shadow-3d {
+      box-shadow: 
+        2px 2px 4px rgba(0,0,0,0.3),
+        4px 4px 8px rgba(0,0,0,0.15),
+        inset 1px 1px 2px rgba(255,255,255,0.8);
+    }
+
+    .deep-shadow {
+      box-shadow: 
+        3px 3px 6px rgba(0,0,0,0.4),
+        6px 6px 12px rgba(0,0,0,0.2),
+        inset 1px 1px 3px rgba(255,255,255,0.9);
     }
 
     header {
-      background: #eaeaea;
-      padding: 20px;
-      border-bottom: 2px solid #000;
+      background: linear-gradient(135deg, #4a90e2 0%, #357abd 50%, #2e6da4 100%);
+      padding: 25px;
+      border-bottom: 3px solid #2e6da4;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
     }
 
     header h1 {
       margin: 0;
-      font-size: 2em;
-      font-style: italic;
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+      font-family: Impact, Arial Black, sans-serif;
+      letter-spacing: 2px;
     }
 
     header p {
-      margin: 0;
-      font-size: 0.9em;
-      color: #555;
+      font-size: 1.1em;
+      color: #e6f3ff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      font-style: italic;
     }
 
     nav {
       text-align: right;
-      margin-top: -40px;
+      margin-top: -50px;
       margin-right: 20px;
     }
 
     nav a {
-      margin-left: 10px;
+      margin-left: 15px;
       text-decoration: none;
-      color: #000;
+      color: #fff;
+      font-weight: bold;
+      padding: 8px 15px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
 
     .container {
       display: flex;
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 30px auto;
-      padding: 30px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-      border: 1px solid #e0e0e0;
+      padding: 0;
+      gap: 20px;
     }
 
     .main-content {
       width: 70%;
-      padding-right: 30px;
+      background: linear-gradient(135deg, #fff 0%, #f8fdff 100%);
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid #ddd;
+      box-shadow: 
+        4px 4px 8px rgba(0,0,0,0.3),
+        8px 8px 16px rgba(0,0,0,0.15),
+        inset 2px 2px 4px rgba(255,255,255,0.9);
     }
 
     .sidebar {
       width: 30%;
-      padding-left: 30px;
-      border-left: 1px solid #f0f0f0;
-      background: none;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+      padding: 25px;
+      border-radius: 15px;
+      border: 2px solid #cce7ff;
+      box-shadow: 
+        4px 4px 8px rgba(0,0,0,0.3),
+        8px 8px 16px rgba(0,0,0,0.15),
+        inset 2px 2px 4px rgba(255,255,255,0.9);
     }
 
     .search-box {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, #fff 0%, #f0f8ff 100%);
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #bbb;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
     }
 
     .search-box input[type="text"] {
-      width: 70%;
-      padding: 5px;
-      border: 1px solid #000;
+      width: 60%;
+      padding: 8px;
+      border: 2px inset #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      background: #fff;
     }
 
     .search-box input[type="submit"] {
-      padding: 5px 10px;
-      border: none;
-      background: #000;
+      padding: 8px 15px;
+      border: 2px outset #666;
+      background: linear-gradient(135deg, #666 0%, #444 100%);
       color: #fff;
       cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
 
-    article {
-      margin-bottom: 30px;
+    .search-box input[type="submit"]:hover {
+      background: linear-gradient(135deg, #777 0%, #555 100%);
+      border: 2px outset #777;
     }
 
-    article img {
-      max-width: 100%;
-      /* border: 1px solid #000; */
+    .search-box input[type="submit"]:active {
+      border: 2px inset #666;
     }
 
-    article h2 {
-      margin: 10px 0 5px;
-      color: #000;
-    }
-
-    article p {
-      margin: 0;
-    }
-
-    .sidebar section {
-      margin-bottom: 20px;
-    }
-
-    .sidebar h3 {
-      margin-bottom: 5px;
-    }
-
-    .sidebar ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    .sidebar li {
-      font-size: 0.9em;
-      margin-bottom: 5px;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.8em;
-      padding: 10px;
-      border-top: 2px solid #000;
-      margin-top: 30px;
-    }
-
-    /* Estilos para las guías dinámicas */
     .guia-item {
-      background: #f9f9f9;
-      border: 1px  #e0e0e0;
-      border-radius: 8px;
-      margin-bottom: 24px;
-      padding: 18px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      background: linear-gradient(135deg, #fff 0%, #f8fdff 50%, #f0f8ff 100%);
+      border: 2px solid #cce7ff;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      padding: 20px;
+      box-shadow: 
+        3px 3px 6px rgba(0,0,0,0.3),
+        6px 6px 12px rgba(0,0,0,0.15),
+        inset 1px 1px 3px rgba(255,255,255,0.9);
+      position: relative;
+    }
+
+    .guia-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #4a90e2 0%, transparent 100%);
+      border-radius: 12px 12px 0 0;
+    }
+
+    .guia-item h4 {
+      color: #2e6da4;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      margin: 0 0 10px 0;
+      font-size: 1.3em;
     }
 
     .guia-meta {
-      margin: 10px 0;
-      font-size: 0.8em;
+      margin: 15px 0;
+      font-size: 0.9em;
       color: #666;
     }
 
     .guia-meta span {
       margin-right: 15px;
-      background: #f0f0f0;
-      padding: 2px 8px;
-      border-radius: 3px;
+      background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+      padding: 4px 12px;
+      border-radius: 15px;
+      border: 1px solid #b3d9ff;
+      box-shadow: 
+        1px 1px 2px rgba(0,0,0,0.2),
+        inset 1px 1px 2px rgba(255,255,255,0.8);
+      display: inline-block;
     }
 
     .btn-leer-mas {
-      background: #2e2e2e;
+      background: linear-gradient(135deg, #4a90e2 0%, #357abd 50%, #2e6da4 100%);
       color: #fff;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 4px;
+      border: 2px outset #4a90e2;
+      padding: 10px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      font-size: 14px;
     }
 
     .btn-leer-mas:hover {
-      background: #769ab4;
+      background: linear-gradient(135deg, #5ba0f2 0%, #4080cd 50%, #357abd 100%);
+      border: 2px outset #5ba0f2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
 
-    .categoria-link {
+    .btn-leer-mas:active {
+      border: 2px inset #4a90e2;
+      transform: translateY(0);
+    }
+
+    .sidebar section {
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, #fff 0%, #f8fdff 100%);
+      padding: 18px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 
+        2px 2px 4px rgba(0,0,0,0.2),
+        inset 1px 1px 2px rgba(255,255,255,0.9);
+    }
+
+    .sidebar h3 {
+      margin: 0 0 15px 0;
+      color: #2e6da4;
+      font-size: 1.2em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      border-bottom: 2px solid #cce7ff;
+      padding-bottom: 8px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      font-size: 0.95em;
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+      border-radius: 6px;
+      border: 1px solid #d0e7ff;
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .sidebar li:hover {
+      background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+      border-color: #b3d9ff;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      padding: 20px;
+      background: linear-gradient(135deg, #2e6da4 0%, #4a90e2 100%);
+      color: #fff;
+      margin-top: 30px;
+      border-top: 3px solid #4a90e2;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+    }
+
+    footer a {
+      color: #e6f3ff;
       text-decoration: none;
-      color: #000;
-      transition: color 0.3s;
-    }
-
-    .categoria-link:hover,
-    .categoria-link.activa {
-      color: #666;
       font-weight: bold;
     }
 
-    /* Modal para detalles */
+    footer a:hover {
+      color: #fff;
+      text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    }
+
+    .bienvenida {
+      margin-bottom: 30px;
+      padding: 25px;
+      background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 50%, #b3d9ff 100%);
+      border-radius: 12px;
+      border: 2px solid #4a90e2;
+      box-shadow: 
+        3px 3px 6px rgba(0,0,0,0.3),
+        6px 6px 12px rgba(0,0,0,0.15),
+        inset 1px 1px 3px rgba(255,255,255,0.9);
+    }
+
+    .bienvenida h2 {
+      margin: 0 0 15px 0;
+      font-size: 1.8em;
+      color: #2e6da4;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .bienvenida p {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    .info-extra {
+      font-size: 1em;
+      color: #2e6da4;
+      display: flex;
+      gap: 25px;
+      font-weight: bold;
+    }
+
+    /* Modal con estilo retro */
     .modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -192,77 +347,129 @@
     }
 
     .modal-contenido {
-      background: #fff;
-      padding: 20px;
-      max-width: 80%;
-      max-height: 80%;
+      background: linear-gradient(135deg, #fff 0%, #f8fdff 100%);
+      padding: 30px;
+      max-width: 85%;
+      max-height: 85%;
       overflow-y: auto;
-      border-radius: 5px;
+      border-radius: 15px;
+      border: 3px solid #4a90e2;
       position: relative;
+      box-shadow: 
+        5px 5px 10px rgba(0,0,0,0.4),
+        10px 10px 20px rgba(0,0,0,0.2),
+        inset 2px 2px 4px rgba(255,255,255,0.9);
+    }
+
+    .modal-contenido h2 {
+      color: #2e6da4;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      margin-top: 0;
+      border-bottom: 2px solid #cce7ff;
+      padding-bottom: 10px;
     }
 
     .cerrar {
       position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 24px;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
       cursor: pointer;
       color: #666;
+      background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+      border: 2px outset #ddd;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     .cerrar:hover {
-      color: #000;
+      background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
+      border: 2px outset #ccc;
+      color: #333;
+    }
+
+    .cerrar:active {
+      border: 2px inset #ddd;
     }
 
     .contenido-completo {
-      margin-top: 20px;
-      line-height: 1.6;
+      margin-top: 25px;
+      line-height: 1.7;
     }
 
-    .bienvenida {
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #f0f0f0;
+    .contenido-completo section {
+      margin-bottom: 25px;
     }
-    .bienvenida h2 {
-      margin: 0 0 8px 0;
-      font-size: 1.5em;
-      color: #222;
-    }
-    .bienvenida p {
-      margin: 0 0 10px 0;
-      color: #555;
-    }
-    .info-extra {
-      font-size: 0.95em;
-      color: #888;
-      display: flex;
-      gap: 20px;
-    }
-    .guia-destacada {
-      margin-bottom: 28px;
-    }
-    .guia-destacada h3 {
-      margin: 0 0 10px 0;
+
+    .contenido-completo strong {
+      color: #2e6da4;
       font-size: 1.1em;
-      color: #0074d9;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Cajas de contenido con estilo 3D */
+    .contexto-box {
+      background: linear-gradient(135deg, rgba(70, 130, 180, 0.1) 0%, rgba(100, 149, 237, 0.15) 100%);
+      border: 2px solid rgba(70, 130, 180, 0.3);
+      border-radius: 10px;
+      padding: 18px;
+      margin: 10px 0;
+      box-shadow: 
+        2px 2px 4px rgba(0,0,0,0.2),
+        inset 1px 1px 2px rgba(255,255,255,0.8);
+    }
+
+    .problema-box {
+      background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(255, 87, 34, 0.15) 100%);
+      border: 2px solid rgba(220, 53, 69, 0.3);
+      border-radius: 10px;
+      padding: 18px;
+      margin: 10px 0;
+      box-shadow: 
+        2px 2px 4px rgba(0,0,0,0.2),
+        inset 1px 1px 2px rgba(255,255,255,0.8);
+    }
+
+    .solucion-box {
+      background: linear-gradient(135deg, rgba(40, 167, 69, 0.9) 0%, rgba(34, 139, 34, 0.95) 100%);
+      color: #fff;
+      border: 2px solid rgba(40, 167, 69, 0.5);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 10px 0;
+      font-size: 1.1em;
+      box-shadow: 
+        3px 3px 6px rgba(0,0,0,0.3),
+        inset 1px 1px 2px rgba(255,255,255,0.3);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     /* Responsive */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
+        gap: 20px;
       }
       
       .main-content,
       .sidebar {
         width: 100%;
-        padding-left: 0;
       }
       
       .modal-contenido {
         max-width: 95%;
         margin: 10px;
+      }
+      
+      .info-extra {
+        flex-direction: column;
+        gap: 10px;
       }
     }
   </style>
@@ -271,33 +478,24 @@
 
   <header>
     <h1>El Blog del Novato</h1>
-    <p>Errores convertidos en manuales </p>
+    <p>Errores convertidos en manuales</p>
     <nav>
       <a href="#">Inicio</a>
       <a href="blog.html">Blog</a>
-      <!-- <a href="#">Guías</a>
-      <a href="#">Contacto</a> -->
     </nav>
   </header>
 
   <div class="container">
     <div class="main-content">
       <section class="bienvenida">
-        <h2>Bienvenido a El Blog del Novato</h2>
-        <p>Encuentra guías sencillas y soluciones prácticas para problemas comunes en Linux y tecnología.</p>
+        <h2>¡Bienvenido a El Blog del Novato!</h2>
+        <p>Encuentra guías sencillas y soluciones prácticas para problemas comunes en Linux y tecnología. Aquí convertimos los errores en aprendizaje.</p>
         <div class="info-extra">
-          <span id="total-guias">Guías publicadas: 12</span>
-          <span id="ultima-actualizacion">Última actualización: 10/06/2024</span>
+          <span id="total-guias">📚 Guías publicadas: <span id="cont_guia">42</span></span>
+          <span id="ultima-actualizacion">🔄 Última actualización: 10/06/2024</span>
         </div>
       </section>
-      <!-- <section class="guia-destacada">
-        <h3>Guía destacada</h3>
-        <div class="guia-item">
-          <h4>Cómo instalar Docker en Debian</h4>
-          <p>Aprende a instalar y configurar Docker paso a paso en tu sistema Debian.</p>
-          <button class="btn-leer-mas">Leer más</button>
-        </div>
-      </section> -->
+
       <div id="guias-container">
         <!-- Las guías se cargarán dinámicamente aquí -->
       </div>
@@ -305,34 +503,37 @@
 
     <div class="sidebar">
       <form class="search-box">
-        <input type="text" placeholder="Buscar...">
-        <input type="submit" value="Search">
+        <input type="text" placeholder="Buscar guías...">
+        <input type="submit" value="Buscar">
       </form>
 
       <section>
-        <h3>Donaciones</h3>
+        <h3>💰 Donaciones</h3>
         <p>¿Te sirvió alguna guía? Considera invitarme un café virtual ☕</p>
       </section>
 
       <section>
-        <h3>Secciones</h3>
+        <h3>📂 Secciones</h3>
         <ul id="categorias-container">
-          <!-- Las categorías se cargarán dinámicamente aquí -->
+          <li><a href="#" class="categoria-link">🐧 Linux</a></li>
+          <li><a href="#" class="categoria-link">🔐 Seguridad</a></li>
+          <li><a href="#" class="categoria-link">🌐 Servidor</a></li>
+          <li><a href="#" class="categoria-link">🐳 Docker</a></li>
+          <li><a href="#" class="categoria-link">⚙️ Configuración</a></li>
         </ul>
       </section>
+
       <section>
-        <h3>Chat</h3>
-        <p>Proximamente</p>
+        <h3>💬 Chat</h3>
+        <p>Próximamente...</p>
       </section>
     </div>
   </div>
 
   <footer>
     © 2025 El Blog del Novato — Compartiendo lo que funciona
-    <p> <a style="list-style: none; color: #222; text-decoration: none; text-underline-offset:none ;" href="https://github.com/JahirWH">Github</a> </p>
-
+    <p><a href="https://github.com/JahirWH">🐙 GitHub</a></p>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>
