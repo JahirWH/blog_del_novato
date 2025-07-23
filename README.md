@@ -9,5 +9,4 @@
 - Mini tutorials: an archive of small but important things that are easy to forget and that I usually have to look up in my notes. Now, this website is my notebook.
 
 
--ccapture
 !(capture)[blog.webp]
