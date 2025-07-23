@@ -1,4 +1,7 @@
 // Clase para manejar el blog dinámico
+document.querySelector('button.md:hidden').addEventListener('click', () => {
+    });
+    
 class BlogDinamico {    
     constructor() {
         this.datos = null;
