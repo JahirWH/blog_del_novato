@@ -135,7 +135,23 @@
       "contexto": "Modifiqué los permisos de todo el sistema mientras intentaba copiar archivos desde una partición montada, lo que dejó el sistema sin acceso a `sudo` ni capacidad para iniciar Jellyfin.",
       "problema": "`sudo` dejó de funcionar con errores de permisos. `su` no podía cambiar de grupo. Además, Jellyfin no iniciaba con error de proceso abortado (ABRT).",
       "solucion": "Usé un sistema Live para montar el sistema dañado, entré con `chroot` y restauré permisos críticos con un script personalizado. También corregí la propiedad de los archivos de Jellyfin para que el servicio pudiera arrancar nuevamente."
-    }
+    },
+    
+    {
+    "id": "iphone-linux-mx-usbmuxd",
+    "titulo": "Conectar y acceder a fotos del iPhone desde Linux (MX Linux) usando usbmuxd",
+    "descripcion": "Pasos para detectar y gestionar un iPhone en MX Linux para mover fotos desde el dispositivo al sistema usando `usbmuxd` y `ipheth`.",
+    "manual": "Para acceder a las fotos de mi iPhone desde mi laptop con MX Linux, necesitaba que el sistema detectara correctamente el dispositivo Apple. Utilicé los siguientes pasos y comandos:\n\n**Pasos realizados:**\n\n1. **Desactivé y volví a activar el módulo del kernel `ipheth`**, que permite la comunicación con dispositivos Apple:\n\n   ```bash\n   sudo rmmod ipheth usbmuxd\n   sudo modprobe ipheth\n   ```\n\n2. **Inicié el demonio `usbmuxd`** (USB Multiplexing Daemon), en modo detallado y en primer plano para ver el estado en tiempo real:\n\n   ```bash\n   sudo usbmuxd -v -f\n   ```\n\n   Este comando muestra si el iPhone está conectado y permite que las aplicaciones accedan al dispositivo.\n\n3. Una vez iniciado, pude acceder a las fotos del iPhone desde un gestor de archivos (como Thunar o Nautilus) o directamente usando herramientas como `ifuse` o `idevicephoto` para montarlo y copiar archivos.\n\n   Ejemplo (si `ifuse` está instalado):\n\n   ```bash\n   mkdir ~/iphone\n   ifuse ~/iphone\n   # ahora se puede acceder a fotos desde ~/iphone/DCIM\n   ```\n\n**Notas importantes:**\n- Asegúrate de confiar en el equipo desde el iPhone cuando se conecte (aceptar el mensaje en la pantalla del iPhone).\n- Puede ser necesario tener instalados paquetes como `libimobiledevice`, `ifuse`, `usbmuxd`, `ideviceinstaller`.\n- En algunos casos, se necesita reiniciar el servicio `usbmuxd` o reconectar el dispositivo si no es reconocido de inmediato.",
+    "imagen": "iphone-linux-fotos.webp",
+    "categoria": "Dispositivos móviles",
+    "fecha": "2025-08-03",
+    "contenido": "Guía práctica para conectar un iPhone a MX Linux y transferir fotos usando usbmuxd, ipheth y herramientas de la biblioteca libimobiledevice.",
+    "contexto": "Quería mover fotos de mi iPhone a mi laptop con MX Linux, pero el sistema no reconocía el dispositivo correctamente hasta cargar manualmente los módulos y el demonio usbmuxd.",
+    "problema": "El iPhone no era detectado automáticamente por MX Linux, y no podía acceder a las fotos ni interactuar con el sistema de archivos del dispositivo.",
+    "solucion": "Se descargaron y recargaron módulos del kernel (`ipheth`), y se ejecutó `usbmuxd` en modo detallado. Después, se accedió al sistema de archivos del iPhone para mover fotos sin problema."
+}
+
+
         
   ],
   "categorias": [
